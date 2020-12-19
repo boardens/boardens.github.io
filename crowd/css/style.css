@@ -92,10 +92,6 @@ html, body {
 	overflow-y: auto !important;
 }
 
-.top-right .content::-webkit-scrollbar {
-    cursor: url("../images/cursor_pointer.png") 25 25, pointer;
-}
-
 .column {
 	text-align: center;
 	float: left;
