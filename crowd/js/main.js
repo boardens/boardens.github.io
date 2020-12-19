@@ -1,25 +1,17 @@
-/* settings */
-let amount = 1500;
-const char_casual = [
-	"deliveryman_0","postman","reading",
-	"running","sweating","walking_paper",
-	"walking_0","walking_1","walking_2",
-	"walking_3","walking_4","standing_0",
-	"standing_1","standing_2","deliveryman_2",
-	"walking_5","walking_6"
-];
-const char_special = [
-	"deliveryman_1","crying","dancing_0",
-	"dancing_1","dancing_2","friends_0",
-	"friends_1"
-];
-const char_tofind = [
-	"ninja","hiking","tennisman_0",
-	"tennisman_1","friends_2","injuried",
-	"fisherman","reading_sitted","loris",
-	"golfer","painter","basketter",
-	"jazzman","student","footballer"
-];
+/* parse data */
+let amount = data["amount"];
+
+const char_casual = data["casuals"];
+const char_special = data["specials"];
+
+const char_tofind = [];
+const char_tofind_name = [];
+const char_tofind_info = [];
+for (let i = data["to_find"].length - 1; i >= 0; i--) {
+	char_tofind.push(data["to_find"][i]["id"]);
+	char_tofind_name.push(data["to_find"][i]["name"]);
+	char_tofind_info.push(data["to_find"][i]["info"]);
+}
 
 /* init surface */
 $(function() {
@@ -50,7 +42,7 @@ $(function() {
 	});
 });
 
-/* init images */
+/* init images, collection, score */
 $(function() {
 	function goIndex(){
 		let table = [];
@@ -95,7 +87,8 @@ $(function() {
 		}
 	}
 
-	/* begin */
+	/* master */
+	/* casuals and specials characters */
 	for (var i = amount; i >= 0; i--) {
 		char_type = Math.floor(Math.random() * 10) + 1;
 		let random_char;
@@ -107,15 +100,36 @@ $(function() {
 			random_char = char_special[Math.floor(Math.random() * char_special.length)];
 		}
 
+		/* add character to the scene */
 		$(".inner").append('<div class="hotspot std" id="hotspot'+i+'"></div>');
-
 		$("#hotspot"+i).css({background: "url(images/"+random_char+".svg) no-repeat"});
 	}
 
+	/* searchable characters */
+	let col = 0;
 	for (var i = char_tofind.length - 1; i >= 0; i--) {
+		/* add character to the scene */
 		$(".inner").append('<div onclick="found('+(amount+i+1)+')" class="hotspot tf noflip" id="hotspot'+(amount+i+1)+'" data-id="'+char_tofind[i]+'"></div>');
-
 		$("#hotspot"+(amount+i+1)).css({background: "url(images/"+char_tofind[i]+".svg) no-repeat"});
+
+		/* build info boxes */
+		$(".boxes").append('<div class="hover-box" id="'+char_tofind[i]+'-box"><p>'+char_tofind_info[i]+'</p></div>')
+
+		/* build collection content */
+		$(".content .row #c"+col).append('<div><img id="'+char_tofind[i]+'" src="images/'+char_tofind[i]+'.svg" height="150px"><br><br><span data-id="'+char_tofind_name[i]+'">???</span></div><br><br>')
+		
+		if(col == 2){
+			col = 0;
+		} else {
+			col += 1;
+		}
+	}
+
+	/* prevent large bottom margin in collection content */
+	for (let i = 0 ; i <= 1; i++) {
+		$(".content .row #c0").children().last().remove();
+		$(".content .row #c1").children().last().remove();
+		$(".content .row #c2").children().last().remove();
 	}
 
 	//console.log($('.hotspot').length)
