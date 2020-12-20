@@ -2,3 +2,5 @@
 > However, ou could be interested by live demos below :)
 
 - [Crowd](/crowd)
+
+- [Bookshelf](/bookshelf)
