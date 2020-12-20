@@ -3,4 +3,4 @@
 
 - [Crowd](/crowd)
 
-- [Bookshelf demo](/bookshelf-demo)
+- [Bookshelf](/bookshelf-demo)
