@@ -3,4 +3,8 @@
 
 - [Crowd](https://boardens.github.io/crowd)
 
-- [Bookshelf](https://boardens.github.io/bookshelf-demo/components.html)
+---
+
+- [Bookshelf](https://boardens.github.io/bookshelf)
+
+- [Bookshelf demo](https://boardens.github.io/bookshelf-demo/components.html)
